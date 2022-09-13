@@ -1,0 +1,32 @@
+Consultas SQL: 
+
+--ejercicio 1
+
+SELECT * FROM producto WHERE fecha_creacion = '2022-09-12' AND id_rubro IN (Select id_rubro from rubro where rubro = 'libreria')
+
+--ejercicio 2
+
+SELECT cliente.apellido, SUM (venta.precio_unitario) AS montoTotal FROM venta
+LEFT JOIN cliente ON venta.ID_cliente = cliente.ID_cliente
+ GROUP BY apellido
+
+ --ejercicio 3
+
+ SELECT producto.codigo, SUM (venta.cantidad) AS cantVentas FROM venta 
+LEFT JOIN producto ON venta.codigo_producto = producto.codigo
+ GROUP BY codigo
+
+ --ejercicio 4
+
+ SELECT cliente.nombre, SUM (venta.cantidad) AS CantidadProd FROM venta
+RIGHT JOIN cliente ON venta.ID_cliente = cliente.ID_cliente
+WHERE fecha >= '2022-09-01' and fecha < '2022-10-01'
+group by nombre
+
+--ejercicio 5  
+
+SELECT * FROM venta WHERE codigo_producto IN (Select id_rubro from producto where id_rubro = '20')
+
+--ejercicio 6 
+
+SELECT * FROM rubro WHERE id_rubro NOT IN (SELECT id_rubro FROM venta where fecha BETWEEN '2022-06-01' AND '2022-08-01')
